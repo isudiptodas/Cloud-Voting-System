@@ -9,7 +9,7 @@ const runInitialData = async () => {
 
     try {
         const data = await Voting.insertMany(initialVoting);
-        console.log(data);
+        console.log(`Initial data inserted`);
     } catch (err) {
         console.log(`Error -> `,err);
     }

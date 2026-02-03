@@ -3,6 +3,7 @@ import { connectDB } from '../config/connectDB.js';
 import { User } from '../models/User.js';
 import jwt from 'jsonwebtoken';
 import bcrypt from 'bcrypt';
+import { authenticate } from '../middleware/authenticate.js';
 
 const router = express.Router();
 
@@ -69,7 +70,7 @@ router.post('/api/login', async (req, res) => {
             });
         }
 
-        const token = jwt.sign({ email: email, name: present.name, userId: present._id}, process.env.JWT_SECRET, { expiresIn: '1d' });
+        const token = jwt.sign({ email: email, name: present.name, userId: present._id }, process.env.JWT_SECRET, { expiresIn: '1d' });
 
         res.cookie('token', token, {
             httpOnly: true,
@@ -94,6 +95,15 @@ router.post('/api/login', async (req, res) => {
             message: "Something went wrong",
         });
     }
+});
+
+router.get('/api/user-verify', authenticate, async (req, res) => {
+
+    return res.status(200).json({
+        success: true,
+        message: 'user verified',
+        data: req.userData
+    });
 });
 
 export default router;
