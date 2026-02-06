@@ -115,7 +115,7 @@ function Home() {
           </div>
         </div>
 
-        <div className={`w-full z-30 px-4 py-10 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 justify-items-center gap-5`}>
+        <div className={`w-full z-30 px-4 py-10 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 justify-items-center gap-5`}>
           {votingData && votingData.map((item, index) => {
             return <div key={index} className={`w-full cursor-pointer group flex flex-col justify-start items-start backdrop-blur-md bg-black/30 px-3 py-3`}>
               <p className={`w-auto text-[8px] capitalize px-4 py-1 rounded-full bg-zinc-900`}>{item.category}</p>
@@ -124,6 +124,7 @@ function Home() {
                 <div className={`w-[10%] group-hover:w-[30%] duration-300 ease-in-out flex justify-center items-center`}> <span className={`w-full h-px bg-white`}></span> <span><IoIosArrowForward /></span></div>
                 <p onClick={() => { setCurrentData(item); setVotingPopupVisible(true) }} className={`w-auto  px-6 cursor-pointer active:opacity-80 duration-200 ease-in-out py-1 rounded-full bg-white text-black text-[12px]`}>Vote</p>
               </div>
+              <p className={`w-full text-center ${item.voterEmail.includes(userData?.email as string) ? "block" : "hidden"} text-[12px] opacity-70 italic py-3`}>You have already votes</p>
             </div>
           })}
         </div>
