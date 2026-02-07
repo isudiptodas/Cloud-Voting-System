@@ -10,12 +10,23 @@ router.get('/api/get-voting-list', async (req, res) => {
     await connectDB();
 
     try {
+
+        const cached = await redisConnect.get('allVoting');
+
+        if (cached) {
+            return res.status(200).json({
+                success: true,
+                message: "Voting list fetched from redis",
+                data: JSON.parse(cached)
+            });
+        }
+
         const found = await Voting.find();
-        //console.log(res);
+        await redisConnect.set('allVoting', JSON.stringify(found));
 
         return res.status(200).json({
             success: true,
-            message: "Voting list fetched",
+            message: "Voting list fetched from db",
             data: found
         });
 

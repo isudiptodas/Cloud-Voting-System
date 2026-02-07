@@ -4,8 +4,18 @@ import cors from 'cors';
 import cookieParser from 'cookie-parser';
 import userAuth from './routes/auth.js';
 import voting from './routes/voting.js';
+import { redisConnect } from './config/redisConnect.js';
 
 const app = express();
+
+async function initRedis() {
+    if (!redisConnect.isOpen) {
+        await redisConnect.connect();
+        console.log(`Redis connected`);
+    }
+}
+
+initRedis();
 
 app.use(express.json());
 app.use(cookieParser());
