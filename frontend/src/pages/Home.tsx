@@ -1,9 +1,9 @@
 import axios from "axios"
 import { useEffect, useState } from "react"
-import { useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { toast } from "sonner";
 import { IoIosArrowForward } from "react-icons/io";
-
+ 
 type Voting = {
   _id?: string,
   category: string;
@@ -42,7 +42,6 @@ function Home() {
   const [selectedAnswer, setSelectedAnswer] = useState('');
   const [input, setInput] = useState('');
   const [now, setNow] = useState<Date>(new Date())
-  const navigate = useNavigate();
 
   useEffect(() => {
     const fetchList = async () => {
@@ -142,11 +141,14 @@ function Home() {
   return (
     <>
       <div className={`w-full min-h-screen bg-linear-to-b from-zinc-800 to-zinc-950 flex flex-col justify-start items-center relative overflow-y-auto hide-scrollbar`}>
-        <h1 className={`w-full text-center mt-10 text-2xl md:text-4xl font-semibold`}>Ongoing Campaigns</h1>
+        
+        <Link to='/' className={`w-full cursor-pointer select-none fixed top-0 z-40 text-center py-5 backdrop-blur-3xl bg-white/5 border-b-2 border-b-black text-sm md:text-lg font-light`}>CloudVault</Link>
+        
+        <h1 className={`w-full text-center mt-24 md:mt-28 text-2xl md:text-4xl font-semibold`}>Ongoing Campaigns</h1>
 
         {/* voting popup */}
         <div onClick={() => setVotingPopupVisible(false)} className={`w-full ${votingPopupVisible ? "translate-y-0" : "translate-y-full"} duration-500 ease-in-out h-screen fixed top-0 backdrop-blur-2xl bg-black/70 z-40 flex flex-col justify-center items-center`}>
-          <div className={`w-[95%] md:w-[60%] lg:w-[50%] xl:w-[40%] h-auto flex flex-col justify-start items-center`}>
+          <div onClick={(e) => e.stopPropagation()} className={`w-[95%] md:w-[60%] lg:w-[50%] xl:w-[40%] h-auto flex flex-col justify-start items-center`}>
             <p className={`w-auto mb-4 px-4 py-1 capitalize text-[12px] rounded-full bg-zinc-800`}>{currentData?.category}</p>
             <h1 className={`w-full px-4 font-semibold text-2xl text-center`}>{currentData?.title}</h1>
 
@@ -167,7 +169,7 @@ function Home() {
         <div className={`w-full ${input? "hidden" : "block"} z-30 px-4 py-10 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 justify-items-center gap-5`}>
           {votingData && votingData.map((item, index) => {
             const left = timeLeft(item.expiry as string);
-            return <div key={index} className={`w-full cursor-pointer group flex flex-col justify-start items-start backdrop-blur-md bg-black/30 px-3 py-3`}>
+            return <div key={index} className={`w-full hover:rounded-3xl duration-200 ease-in-out cursor-pointer group flex flex-col justify-start items-start backdrop-blur-md bg-black/30 px-3 py-3`}>
               <p className={`w-auto text-[8px] capitalize px-4 py-1 rounded-full bg-zinc-900`}>{item.category}</p>
               <p className={`w-auto text-sm font-semibold capitalize px-2 py-5`}>{item.title}</p>
               <p className={`w-full text-start text-[12px] px-3 font-mono pb-3 text-green-400`}>{left ? (
@@ -194,7 +196,7 @@ function Home() {
         <div className={`w-full ${input ? "block" : "hidden"} z-30 px-4 py-10 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 justify-items-center gap-5`}>
           {filteredData && filteredData.map((item, index) => {
             const left = timeLeft(item.expiry as string);
-            return <div key={index} className={`w-full cursor-pointer group flex flex-col justify-start items-start backdrop-blur-md bg-black/30 px-3 py-3`}>
+            return <div key={index} className={`w-full hover:rounded-3xl duration-200 ease-in-out cursor-pointer group flex flex-col justify-start items-start backdrop-blur-md bg-black/30 px-3 py-3`}>
               <p className={`w-auto text-[8px] capitalize px-4 py-1 rounded-full bg-zinc-900`}>{item.category}</p>
               <p className={`w-auto text-sm font-semibold capitalize px-2 py-5`}>{item.title}</p>
               <p className={`w-full text-start text-[12px] px-3 font-mono pb-3 text-green-400`}>{left ? (

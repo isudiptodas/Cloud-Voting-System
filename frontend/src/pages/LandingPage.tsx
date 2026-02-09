@@ -36,7 +36,9 @@ function LandingPage() {
     <>
       <div className={`w-full h-screen flex flex-col justify-start items-center relative bg-linear-to-b from-zinc-800 to-zinc-950 overflow-y-auto hide-scrollbar`}>
 
-        <h1 className={`w-full mt-5 z-20 text-center px-5 text-5xl md:text-7xl pt-5 lg:pt-0 pb-3 font-bold bg-linear-to-b from-white via-gray-400 to-gray-700 bg-clip-text text-transparent`}>Cloud Voting System</h1>
+        <Link to='/' className={`w-full cursor-pointer select-none fixed top-0 z-40 text-center py-5 backdrop-blur-3xl bg-white/5 border-b-2 border-b-black text-sm md:text-lg font-light`}>CloudVault</Link>
+
+        <h1 className={`w-full mt-20 md:mt-24 z-20 text-center px-5 text-5xl md:text-7xl pt-5 lg:pt-0 pb-3 font-bold bg-linear-to-b from-white via-gray-400 to-gray-700 bg-clip-text text-transparent`}>Cloud Voting System</h1>
         <p className={`w-full md:w-[70%] z-20 text-center text-white text-sm md:text-lg opacity-70 font-light py-5 px-5`}>You can cast a vote after verifying your account</p>
 
         <div className={`w-125 h-125 bg-linear-to-br from-gray-500 to-black rounded-full opacity-30 absolute -left-1/2 -top-[20%] md:top-[10%] md:left-[20%] lg:-left-1/3 z-10`} />
