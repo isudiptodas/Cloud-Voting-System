@@ -1,5 +1,5 @@
 <h1>Cloud Native DevOps Architecture</h1>
-<p><b>Tech Stack : </b> <i>ReactJS, NodeJS, ExpressJS, MongoDB, Redis, Docker, Kubernetes, Jenkins, AWS ELB</i></p>
+<p><b>Tech Stack : </b> <i>ReactJS, NodeJS, ExpressJS, MongoDB, Redis, Docker, Kubernetes, Jenkins, AWS ELB, Prometheus, Grafana</i></p>
 
 <h4>Architecture :</h4>
 <ul>
