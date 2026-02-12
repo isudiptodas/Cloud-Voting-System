@@ -4,7 +4,8 @@ pipeline {
     
     environment {
         MONGO_TEST = credentials('MONGODB_TEST_URL')
-        REDIS = credentials('REDIS_URL')
+        REDIS_HOST = credentials('REDIS_HOST')
+        REDIS_PORT = credentials('REDIS_PORT')
         DOCKER_USERNAME = credentials('DOCKER_USERNAME')
         IMAGE_NAME = "${DOCKER_USERNAME}/cloudvault-backend:${BUILD_NUMBER}"
         USER_EMAIL = credentials('ALERT_EMAIL')
@@ -24,7 +25,8 @@ pipeline {
             steps {
                 dir('backend') {
                     sh 'export MONGODB_TEST_URL=$MONGO_TEST'
-                    sh 'export REDIS_URL=$REDIS'
+                    sh 'export REDIS_HOST=$REDIS_HOST'
+                    sh 'export REDIS_PORT=$REDIS_PORT'
                     sh 'cross-env NODE_ENV=test npm test'
                     echo 'Test successful'
                 }
@@ -83,5 +85,6 @@ pipeline {
         }
     }
 }
+
 
 
