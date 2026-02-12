@@ -1,22 +1,70 @@
 pipeline {
-    agent any
+    
+    agent { label 'worker_agent' }
+    
+    environment {
+        MONGO_TEST = credentials('MONGODB_TEST_URL')
+        REDIS = credentials('REDIS_URL')
+        DOCKER_USER = credentials('DOCKER_USERNAME')
+        IMAGE_NAME = "${DOCKER_USER}/cloudvault-backend:${BUILD_NUMBER}"
+    }
+    
     stages {
-            stage('clone'){
-                steps{
-                    echo 'Cloning git repository'
-                }
-            }
-            stage('build'){
-                steps{
-                    echo 'Building image from code'
-                    echo 'Build successfull'
-                }
-            }
-            stage('push'){
-                steps{
-                    echo 'Pushing to docker hub'
-                    echo 'Push successfull'
+
+        stage('Install dependency') {
+            steps {
+                dir('backend') {
+                    sh 'npm install'
                 }
             }
         }
+        
+        stage('Run test') {
+            steps {
+                dir('backend') {
+                    sh 'export MONGODB_TEST_URL=$MONGO_TEST'
+                    sh 'export REDIS_URL=$REDIS'
+                    sh 'cross-env NODE_ENV=test npm test'
+                    echo 'Test successful'
+                }
+            }
+        }
+        
+        stage('Build image') {
+            steps {
+                dir('backend') {
+                    echo 'Starting image build...'
+                    sh 'docker build -t $IMAGE_NAME .'
+                    echo 'Build successful'
+                }
+            }
+        }
+
+        stage('Scan image') {
+            steps {
+                echo 'Starting image scanning...'
+                sh 'trivy image --exit-code 1 --severity HIGH,CRITICAL $IMAGE_NAME'
+                echo 'Scan completed'
+            }
+        }
+
+        stage('Push to registry') {
+            steps {
+                withCredentials([usernamePassword(
+                    credentialsId: 'DOCKERHUB_CREDS',
+                    usernameVariable: 'DOCKER_USER',
+                    passwordVariable: 'DOCKER_PASS'
+                )]) {
+                    echo 'Pushing image to registry...'
+                    sh 'echo $DOCKER_PASS | docker login -u $DOCKER_USER --password-stdin'
+                    sh 'docker push $IMAGE_NAME'
+                    echo 'Image pushed to registry'
+                }
+            }
+        }
+    }
+
+    post {
+        
+    }
 }
