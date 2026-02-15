@@ -118,6 +118,19 @@
   <li>Pipeline connected 🎉</li>
 </ol>
 
-
+<h2><b>STEP 5 : AWS EKS Deployment</b></h2>
+<ol>
+  <li>Create cluster in aws console with VPC settings and subnets</li>
+  <li>On jenkins agent EC2 : </li>
+  <ul>
+    <li>Add IAM role policy for EKS access permission</li>
+    <li>run aws command for kubeconfig file generate with cluster name and region</li>
+    <li>Create yml files for deployment, service, secrets</li>
+    <li>Apply yml to create deployments in cluster</li>
+    <li>Get public DNS name</li>
+    <li>Backend running 🎉</li>
+  </ul>
+  <li>Create auto deployment rollout with jenkins pipeline</li>
+</ol>
 
 
