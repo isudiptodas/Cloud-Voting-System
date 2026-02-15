@@ -96,5 +96,28 @@
   <li>Ready for jobs and pipeline 🎉</li>
 </ol>
 
+<h2><b>STEP 3 : Connect github webhook trigger</b></h2>
+<ol>
+  <li>Open github > repo you want to connect > repo settings</li>
+  <li>Webhooks > add webhook</li>
+  <li>url : http://ipv4-address:8080/github-webhook/ (IPv4 should not change that's why elastic IP is recommended)</li>
+  <li>Content type : application/json</li>
+  <li>SSL verification : disable</li>
+  <li>Check event type</li>
+  <li>Save and exit</li>
+  <li>Done 🎉</li>
+</ol>
+
+<h2><b>STEP 4 : Webhook trigger jenkins pipeline</b></h2>
+<ol>
+  <li>dashboard > new item > pipeline</li>
+  <li>Select git scm polling</li>
+  <li>Add repo url, branch, pipeline file script path (Jenkinsfile)</li>
+  <li>Add authentication method : username with password or (personal access tokens)</li>
+  <li>Save and exit</li>
+  <li>Pipeline connected 🎉</li>
+</ol>
+
+
 
 
