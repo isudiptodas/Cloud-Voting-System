@@ -15,10 +15,11 @@ spec:
         app: cloudvault
     spec:
       containers:
-      - name: cloudvault
-        image: isudiptodas/cloudvault-backend:04
-        ports:
-        - containerPort: 5000
-        envFrom:
-        - secretRef:
-          name: cloudvault-secret
+        - name: cloudvault
+          image: isudiptodas/cloudvault-backend:11
+          ports:
+            - containerPort: 5000
+          envFrom:
+            - secretRef:
+                name: cloudvault-secret
+
