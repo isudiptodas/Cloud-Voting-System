@@ -1,4 +1,4 @@
-pipeline {
+pipeline {  
       
     agent { label 'worker_agent' }
     
@@ -97,6 +97,7 @@ pipeline {
         }
     }
 }
+
 
 
 
