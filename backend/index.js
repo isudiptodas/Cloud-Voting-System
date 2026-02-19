@@ -7,7 +7,7 @@ import voting from './routes/voting.js';
 import { redisConnect } from './config/redisConnect.js';
 import { connectDB } from './config/connectDB.js';
 
-const app = express();
+const app = express();  
 
 async function initConnection() {
     if (!redisConnect.isOpen) {
@@ -47,3 +47,4 @@ if (process.env.NODE_ENV !== "test") {
 
 
 export default app;
+
